@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Gallery</title>
+</head>
+
+<body style="text-align: center; background-color: #f0f0f0; color: #333;">
+
+<div style="padding-top:30px;">
+    <button onclick="changeTumbs(false)" style="border: none; background: none;">
+        <img src="images/back.jpg" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    </button>
+    <img src="images/i1.jpg" name="1" onclick="openImg(this)" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    <img src="images/i2.jpg" name="2" onclick="openImg(this)" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    <img src="images/i3.jpg" name="3" onclick="openImg(this)" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    <button onclick="changeTumbs(true)" style="border: none; background: none;">
+        <img src="images/next.jpg" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    </button>
+</div>
+
+<div style="margin-top: 20px;">
+    <button onclick="prevImg()" style="border: none; background: none;">
+        <img src="./images/back.jpg" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    </button>
+    <img src="images/i1_big.jpg" name="big" title="Fantastical Fruits" style="border:3px solid #ccc; cursor:default;">
+    <button onclick="nextImg()" style="border: none; background: none;">
+        <img src="./images/next.jpg" style="border:3px solid #ccc; margin:10px; cursor:pointer;">
+    </button>
+</div>
+
+<button onclick="themeOfSite()" style="margin-top: 20px; padding: 10px; cursor: pointer;">Toggle Light/Dark Theme</button>
+
+<script>
+    let currImg = 1; 
+    function openImage(pic) {
+        currImg = parseInt(pic.name);
+        document.images["big"].src = "images/i" + currImg + "_big.jpg";
+    }
+
+    function changeTumbs(flag) {
+        if (flag) {
+            if (document.images[3].name == 9) {
+                for (let i = 1; i <= 3; i++) {
+                    document.images[i].name = i;
+                    document.images[i].src = "images/i" + i + ".jpg";
+                }
+            } else {
+                for (let i = 1; i <= 3; i++) {
+                    document.images[i].name = parseInt(document.images[i].name) + 3;
+                    document.images[i].src = "images/i" + document.images[i].name + ".jpg";
+                }
+            }
+        } else {
+            if (document.images[1].name == 1) {
+                for (let i = 1; i <= 3; i++) {
+                    document.images[i].name = i + 6;
+                    document.images[i].src = "images/i" + (i + 6) + ".jpg";
+                }
+            } else {
+                for (let i = 1; i <= 3; i++) {
+                    document.images[i].name = parseInt(document.images[i].name) - 3;
+                    document.images[i].src = "images/i" + document.images[i].name + ".jpg";
+                }
+            }
+        }
+    }
+
+    function nextImg() {
+        currImg = currImg < 9 ? currImg + 1 : 1;
+        document.images["big"].src = "images/i" + currImg + "_big.jpg";
+    }
+
+    function prevImg() {
+        currImg = currImg > 1 ? currImg - 1 : 9;
+        document.images["big"].src = "images/i" + currImg + "_big.jpg";
+    }
+
+    function themeOfSite() {
+        if (document.body.style.backgroundColor === "rgb(240, 240, 240)") {
+            document.body.style.backgroundColor = "#333";
+            document.body.style.color = "#f0f0f0";
+        } else {
+            document.body.style.backgroundColor = "#f0f0f0";
+            document.body.style.color = "#333";
+        }
+    }
+</script>
+
+</body>
+</html>
